@@ -1,0 +1,34 @@
+{% extends 'layout/main.html' %}
+
+{% block content %}
+<section class="bg-light py-4 my-5">
+    <div class="container">
+        <h4 class="mb-3">{{ category_name }} Products</h4>
+        <hr style="border-color: #b8bfc2;">
+
+        <div class="row">
+            {% for item in product %}
+            <div class="col-md-4 col-lg-3">
+                <div class="card my-3">
+                    {% if item.products_image %}
+                    <img src="{{ item.products_image.url }}" class="card-img-top" alt="Product Image">
+                    {% else %}
+                    <img src="/path/to/default/image.jpg" class="card-img-top" alt="Default Image">
+                    {% endif %}
+                    <div class="card-body">
+                        <a href="{% url 'productview' category_name item.name %}">
+                            <h5 class="card-title text-primary">{{ item.name }}</h5>
+                        </a>
+                        <p class="card-text">
+                            <span class="float-start old_price"><s>Rs. {{ item.original_price | stringformat:'d' }}</s></span>
+                            <span class="float-end new_price">Rs. {{ item.selling_price | stringformat:'d' }}</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+    </div>
+</section>
+{% endblock content %}
